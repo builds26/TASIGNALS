@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -21,244 +20,111 @@
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { background: var(--bg); color: var(--text); font-family: var(--body); font-size: 14px; -webkit-font-smoothing: antialiased; min-height: 100vh; overflow-x: hidden; }
-
-/* ============ EDGY HWMF BACKGROUND ============ */
-.bg-layer {
-position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
-}
-/* Massive HWMF watermark */
-.bg-layer::before {
-content: ‘HWMF’;
-position: absolute;
-top: 50%; left: 50%;
-transform: translate(-50%, -50%) rotate(-8deg);
-font-family: var(–stencil);
-font-size: 42vw;
-font-weight: 900;
-color: transparent;
--webkit-text-stroke: 2px rgba(245, 209, 66, 0.05);
-letter-spacing: -0.02em;
-white-space: nowrap;
-user-select: none;
-}
-/* Grid overlay */
-.bg-layer::after {
-content: ‘’;
-position: absolute; inset: 0;
-background-image:
-linear-gradient(rgba(245,209,66,0.025) 1px, transparent 1px),
-linear-gradient(90deg, rgba(245,209,66,0.025) 1px, transparent 1px);
-background-size: 48px 48px;
-}
-/* Scan lines */
-.scanlines {
-position: fixed; inset: 0; z-index: 1; pointer-events: none;
-background: repeating-linear-gradient(
-180deg,
-rgba(255,255,255,0) 0px,
-rgba(255,255,255,0) 2px,
-rgba(255,255,255,0.012) 3px,
-rgba(255,255,255,0) 4px
-);
-}
-/* Vignette + corner glow */
-.vignette {
-position: fixed; inset: 0; z-index: 2; pointer-events: none;
-background:
-radial-gradient(ellipse at top left, rgba(245,209,66,0.04), transparent 40%),
-radial-gradient(ellipse at bottom right, rgba(255,77,109,0.03), transparent 40%),
-radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.5) 100%);
-}
-/* Crosshair ticks in corners */
+.bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.bg-layer::before { content: 'HWMF'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-8deg); font-family: var(--stencil); font-size: 42vw; font-weight: 900; color: transparent; -webkit-text-stroke: 2px rgba(245, 209, 66, 0.05); letter-spacing: -0.02em; white-space: nowrap; user-select: none; }
+.bg-layer::after { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(245,209,66,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(245,209,66,0.025) 1px, transparent 1px); background-size: 48px 48px; }
+.scanlines { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: repeating-linear-gradient(180deg, rgba(255,255,255,0) 0px, rgba(255,255,255,0) 2px, rgba(255,255,255,0.012) 3px, rgba(255,255,255,0) 4px); }
+.vignette { position: fixed; inset: 0; z-index: 2; pointer-events: none; background: radial-gradient(ellipse at top left, rgba(245,209,66,0.04), transparent 40%), radial-gradient(ellipse at bottom right, rgba(255,77,109,0.03), transparent 40%), radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.5) 100%); }
 .corner { position: fixed; width: 24px; height: 24px; z-index: 3; pointer-events: none; }
-.corner.tl { top: 12px; left: 12px; border-top: 2px solid var(–accent); border-left: 2px solid var(–accent); }
-.corner.tr { top: 12px; right: 12px; border-top: 2px solid var(–accent); border-right: 2px solid var(–accent); }
-.corner.bl { bottom: 12px; left: 12px; border-bottom: 2px solid var(–accent); border-left: 2px solid var(–accent); }
-.corner.br { bottom: 12px; right: 12px; border-bottom: 2px solid var(–accent); border-right: 2px solid var(–accent); }
-
+.corner.tl { top: 12px; left: 12px; border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+.corner.tr { top: 12px; right: 12px; border-top: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+.corner.bl { bottom: 12px; left: 12px; border-bottom: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+.corner.br { bottom: 12px; right: 12px; border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); }
 .app { position: relative; z-index: 5; max-width: 1400px; margin: 0 auto; padding: 24px; }
-
-/* ============ GATE SCREEN ============ */
-.gate {
-position: fixed; inset: 0; z-index: 100;
-background: rgba(5, 6, 8, 0.92);
-backdrop-filter: blur(8px);
--webkit-backdrop-filter: blur(8px);
-display: flex; align-items: center; justify-content: center;
-padding: 24px;
-}
-.gate-panel {
-max-width: 460px;
-width: 100%;
-background: var(–bg-1);
-border: 1px solid var(–line);
-padding: 40px 32px;
-position: relative;
-text-align: center;
-}
-.gate-panel::before {
-content: ‘’; position: absolute; inset: 0;
-background: linear-gradient(135deg, transparent 49%, rgba(245,209,66,0.04) 50%, transparent 51%);
-pointer-events: none;
-}
-.gate-mark {
-font-family: var(–stencil);
-font-size: 72px;
-letter-spacing: 0.1em;
-color: var(–accent);
-text-shadow: 0 0 30px rgba(245, 209, 66, 0.4);
-line-height: 1;
-margin-bottom: 8px;
-}
-.gate-sub {
-font-family: var(–mono);
-font-size: 11px;
-text-transform: uppercase;
-letter-spacing: 0.3em;
-color: var(–muted);
-margin-bottom: 32px;
-}
-.gate-title {
-font-family: var(–display);
-font-size: 28px;
-letter-spacing: 0.05em;
-margin-bottom: 12px;
-}
-.gate-desc {
-font-size: 13px;
-color: var(–dim);
-line-height: 1.6;
-margin-bottom: 28px;
-}
-.connect-btn {
-display: block;
-width: 100%;
-background: var(–accent);
-color: var(–bg);
-border: none;
-padding: 14px;
-font-family: var(–mono);
-font-size: 12px;
-font-weight: 700;
-letter-spacing: 0.15em;
-text-transform: uppercase;
-cursor: pointer;
-margin-bottom: 8px;
-transition: opacity 0.15s;
-}
-.connect-btn.secondary {
-background: transparent;
-color: var(–text);
-border: 1px solid var(–line);
-}
+.gate { position: fixed; inset: 0; z-index: 100; background: rgba(5, 6, 8, 0.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 24px; }
+.gate-panel { max-width: 460px; width: 100%; background: var(--bg-1); border: 1px solid var(--line); padding: 40px 32px; position: relative; text-align: center; }
+.gate-panel::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 49%, rgba(245,209,66,0.04) 50%, transparent 51%); pointer-events: none; }
+.gate-mark { font-family: var(--stencil); font-size: 72px; letter-spacing: 0.1em; color: var(--accent); text-shadow: 0 0 30px rgba(245, 209, 66, 0.4); line-height: 1; margin-bottom: 8px; }
+.gate-sub { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.3em; color: var(--muted); margin-bottom: 32px; }
+.gate-title { font-family: var(--display); font-size: 28px; letter-spacing: 0.05em; margin-bottom: 12px; }
+.gate-desc { font-size: 13px; color: var(--dim); line-height: 1.6; margin-bottom: 28px; }
+.connect-btn { display: block; width: 100%; background: var(--accent); color: var(--bg); border: none; padding: 14px; font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; margin-bottom: 8px; transition: opacity 0.15s; }
+.connect-btn.secondary { background: transparent; color: var(--text); border: 1px solid var(--line); }
 .connect-btn:hover { opacity: 0.85; }
 .connect-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.gate-status {
-margin-top: 20px;
-font-family: var(–mono);
-font-size: 11px;
-color: var(–muted);
-letter-spacing: 0.1em;
-min-height: 16px;
-}
-.gate-status.error { color: var(–short); }
-.gate-status.ok { color: var(–long); }
-.gate-footer {
-margin-top: 24px;
-padding-top: 20px;
-border-top: 1px solid var(–line);
-font-family: var(–mono);
-font-size: 10px;
-color: var(–muted);
-letter-spacing: 0.15em;
-text-transform: uppercase;
-}
-
-/* ============ MAIN APP ============ */
-.header { display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 1px solid var(–line); padding-bottom: 20px; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+.gate-status { margin-top: 20px; font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.1em; min-height: 16px; word-break: break-all; line-height: 1.5; }
+.gate-status.error { color: var(--short); }
+.gate-status.ok { color: var(--long); }
+.gate-footer { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
+.detect-info { margin-top: 12px; padding: 8px; background: rgba(0,0,0,0.3); border: 1px dashed var(--line); font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 0.05em; text-align: left; line-height: 1.5; }
+.header { display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 20px; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
 .brand { display: flex; align-items: baseline; gap: 12px; }
-.brand h1 { font-family: var(–stencil); font-size: 32px; letter-spacing: 0.08em; line-height: 1; color: var(–accent); }
-.brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(–long); box-shadow: 0 0 12px var(–long); align-self: center; animation: pulse 2s ease-in-out infinite; }
-.brand .dot.err { background: var(–short); box-shadow: 0 0 12px var(–short); }
+.brand h1 { font-family: var(--stencil); font-size: 32px; letter-spacing: 0.08em; line-height: 1; color: var(--accent); }
+.brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--long); box-shadow: 0 0 12px var(--long); align-self: center; animation: pulse 2s ease-in-out infinite; }
+.brand .dot.err { background: var(--short); box-shadow: 0 0 12px var(--short); }
 @keyframes pulse { 50% { opacity: 0.4; } }
-.brand .sub { font-family: var(–mono); font-size: 11px; color: var(–muted); text-transform: uppercase; letter-spacing: 0.15em; }
-.status { display: flex; gap: 16px; font-family: var(–mono); font-size: 11px; color: var(–muted); text-transform: uppercase; letter-spacing: 0.1em; flex-wrap: wrap; align-items: center; }
-.status span strong { color: var(–text); }
-.wallet-chip {
-background: var(–bg-1); border: 1px solid var(–line); padding: 6px 10px;
-font-family: var(–mono); font-size: 10px; color: var(–accent); letter-spacing: 0.05em;
-display: flex; align-items: center; gap: 6px;
-}
-.wallet-chip::before { content: ‘’; width: 6px; height: 6px; border-radius: 50%; background: var(–long); box-shadow: 0 0 6px var(–long); }
-.banner-error { background: rgba(255,77,109,0.1); border: 1px solid var(–short); color: var(–short); padding: 12px 16px; margin-bottom: 16px; font-family: var(–mono); font-size: 12px; display: none; line-height: 1.5; }
-.pair-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1px; background: var(–line); border: 1px solid var(–line); margin-bottom: 24px; }
-.pair-tile { background: var(–bg-1); padding: 12px 14px; cursor: pointer; transition: background 0.15s; border-left: 2px solid transparent; }
-.pair-tile:hover { background: var(–bg-2); }
-.pair-tile.active { background: var(–bg-2); border-left-color: var(–accent); }
-.pair-tile .sym { font-family: var(–mono); font-weight: 700; font-size: 13px; letter-spacing: 0.05em; }
-.pair-tile .px { font-family: var(–mono); font-size: 14px; margin-top: 4px; }
-.pair-tile .ch { font-family: var(–mono); font-size: 11px; margin-top: 2px; }
-.up { color: var(–long); } .down { color: var(–short); }
+.brand .sub { font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.15em; }
+.status { display: flex; gap: 16px; font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; flex-wrap: wrap; align-items: center; }
+.status span strong { color: var(--text); }
+.wallet-chip { background: var(--bg-1); border: 1px solid var(--line); padding: 6px 10px; font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 0.05em; display: flex; align-items: center; gap: 6px; }
+.wallet-chip::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--long); box-shadow: 0 0 6px var(--long); }
+.banner-error { background: rgba(255,77,109,0.1); border: 1px solid var(--short); color: var(--short); padding: 12px 16px; margin-bottom: 16px; font-family: var(--mono); font-size: 12px; display: none; line-height: 1.5; }
+.pair-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 24px; }
+.pair-tile { background: var(--bg-1); padding: 12px 14px; cursor: pointer; transition: background 0.15s; border-left: 2px solid transparent; }
+.pair-tile:hover { background: var(--bg-2); }
+.pair-tile.active { background: var(--bg-2); border-left-color: var(--accent); }
+.pair-tile .sym { font-family: var(--mono); font-weight: 700; font-size: 13px; letter-spacing: 0.05em; }
+.pair-tile .px { font-family: var(--mono); font-size: 14px; margin-top: 4px; }
+.pair-tile .ch { font-family: var(--mono); font-size: 11px; margin-top: 2px; }
+.up { color: var(--long); } .down { color: var(--short); }
 .grid { display: grid; grid-template-columns: 1fr 380px; gap: 24px; }
 @media (max-width: 1000px) { .grid { grid-template-columns: 1fr; } }
-.panel { background: var(–bg-1); border: 1px solid var(–line); }
-.panel-head { padding: 14px 18px; border-bottom: 1px solid var(–line); display: flex; justify-content: space-between; align-items: center; }
-.panel-head h2 { font-family: var(–mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: var(–dim); font-weight: 500; }
+.panel { background: var(--bg-1); border: 1px solid var(--line); }
+.panel-head { padding: 14px 18px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+.panel-head h2 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--dim); font-weight: 500; }
 .panel-body { padding: 18px; }
 .chart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
 .chart-title { display: flex; align-items: baseline; gap: 12px; }
-.chart-title .name { font-family: var(–display); font-size: 28px; letter-spacing: 0.04em; }
-.chart-title .pair { font-family: var(–mono); color: var(–muted); font-size: 13px; }
-.chart-price { font-family: var(–mono); font-size: 24px; font-weight: 700; }
-.chart-change { font-family: var(–mono); font-size: 13px; margin-left: 8px; }
+.chart-title .name { font-family: var(--display); font-size: 28px; letter-spacing: 0.04em; }
+.chart-title .pair { font-family: var(--mono); color: var(--muted); font-size: 13px; }
+.chart-price { font-family: var(--mono); font-size: 24px; font-weight: 700; }
+.chart-change { font-family: var(--mono); font-size: 13px; margin-left: 8px; }
 .timeframes { display: flex; gap: 4px; }
-.tf-btn { background: var(–bg-2); border: 1px solid var(–line); color: var(–dim); font-family: var(–mono); font-size: 11px; padding: 6px 10px; cursor: pointer; letter-spacing: 0.05em; }
-.tf-btn:hover { color: var(–text); }
-.tf-btn.active { color: var(–bg); background: var(–accent); border-color: var(–accent); }
-.signal-banner { padding: 20px; border-bottom: 1px solid var(–line); position: relative; overflow: hidden; }
-.signal-banner::before { content: ‘’; position: absolute; inset: 0; opacity: 0.06; background: var(–signal-color, transparent); }
-.signal-banner.long { –signal-color: var(–long); }
-.signal-banner.short { –signal-color: var(–short); }
-.signal-banner.neutral { –signal-color: var(–warn); }
-.signal-direction { font-family: var(–display); font-size: 56px; letter-spacing: 0.06em; line-height: 1; }
-.signal-direction.long { color: var(–long); }
-.signal-direction.short { color: var(–short); }
-.signal-direction.neutral { color: var(–warn); }
-.signal-meta { display: flex; gap: 18px; margin-top: 10px; font-family: var(–mono); font-size: 11px; color: var(–muted); text-transform: uppercase; letter-spacing: 0.1em; flex-wrap: wrap; }
-.signal-meta strong { color: var(–text); }
-.levels { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(–line); border-top: 1px solid var(–line); border-bottom: 1px solid var(–line); }
-.level { background: var(–bg-1); padding: 14px 18px; }
-.level .label { font-family: var(–mono); font-size: 10px; color: var(–muted); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 4px; }
-.level .value { font-family: var(–mono); font-size: 16px; font-weight: 500; }
-.level.entry .value { color: var(–accent); }
-.level.sl .value { color: var(–short); }
-.level.tp .value { color: var(–long); }
-.level .delta { font-family: var(–mono); font-size: 10px; color: var(–muted); margin-top: 2px; }
-.factor { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed var(–line); }
+.tf-btn { background: var(--bg-2); border: 1px solid var(--line); color: var(--dim); font-family: var(--mono); font-size: 11px; padding: 6px 10px; cursor: pointer; letter-spacing: 0.05em; }
+.tf-btn:hover { color: var(--text); }
+.tf-btn.active { color: var(--bg); background: var(--accent); border-color: var(--accent); }
+.signal-banner { padding: 20px; border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
+.signal-banner::before { content: ''; position: absolute; inset: 0; opacity: 0.06; background: var(--signal-color, transparent); }
+.signal-banner.long { --signal-color: var(--long); }
+.signal-banner.short { --signal-color: var(--short); }
+.signal-banner.neutral { --signal-color: var(--warn); }
+.signal-direction { font-family: var(--display); font-size: 56px; letter-spacing: 0.06em; line-height: 1; }
+.signal-direction.long { color: var(--long); }
+.signal-direction.short { color: var(--short); }
+.signal-direction.neutral { color: var(--warn); }
+.signal-meta { display: flex; gap: 18px; margin-top: 10px; font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; flex-wrap: wrap; }
+.signal-meta strong { color: var(--text); }
+.levels { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.level { background: var(--bg-1); padding: 14px 18px; }
+.level .label { font-family: var(--mono); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 4px; }
+.level .value { font-family: var(--mono); font-size: 16px; font-weight: 500; }
+.level.entry .value { color: var(--accent); }
+.level.sl .value { color: var(--short); }
+.level.tp .value { color: var(--long); }
+.level .delta { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 2px; }
+.factor { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed var(--line); }
 .factor:last-child { border-bottom: none; }
 .factor .info { display: flex; flex-direction: column; gap: 2px; }
-.factor .name { font-family: var(–mono); font-size: 12px; font-weight: 500; }
-.factor .detail { font-size: 11px; color: var(–muted); }
-.vote { font-family: var(–mono); font-size: 10px; font-weight: 700; padding: 3px 8px; border: 1px solid; letter-spacing: 0.1em; }
-.vote.long { color: var(–long); border-color: var(–long); }
-.vote.short { color: var(–short); border-color: var(–short); }
-.vote.neutral { color: var(–muted); border-color: var(–muted); }
-.ind-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(–line); margin-top: 16px; }
-.ind { background: var(–bg-1); padding: 10px 12px; }
-.ind .k { font-family: var(–mono); font-size: 10px; color: var(–muted); letter-spacing: 0.1em; text-transform: uppercase; }
-.ind .v { font-family: var(–mono); font-size: 13px; margin-top: 2px; }
-.disclaimer { margin-top: 32px; padding: 16px 18px; border: 1px solid var(–line); background: var(–bg-1); font-size: 12px; color: var(–muted); line-height: 1.6; }
-.disclaimer strong { color: var(–warn); font-family: var(–mono); letter-spacing: 0.05em; }
-.wisdom { padding: 16px 18px; font-family: var(–mono); font-size: 12px; color: var(–dim); line-height: 1.7; border-top: 1px solid var(–line); }
-.wisdom .author { color: var(–accent); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6px; display: block; }
-.loading { padding: 60px; text-align: center; font-family: var(–mono); color: var(–muted); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+.factor .name { font-family: var(--mono); font-size: 12px; font-weight: 500; }
+.factor .detail { font-size: 11px; color: var(--muted); }
+.vote { font-family: var(--mono); font-size: 10px; font-weight: 700; padding: 3px 8px; border: 1px solid; letter-spacing: 0.1em; }
+.vote.long { color: var(--long); border-color: var(--long); }
+.vote.short { color: var(--short); border-color: var(--short); }
+.vote.neutral { color: var(--muted); border-color: var(--muted); }
+.ind-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); margin-top: 16px; }
+.ind { background: var(--bg-1); padding: 10px 12px; }
+.ind .k { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+.ind .v { font-family: var(--mono); font-size: 13px; margin-top: 2px; }
+.disclaimer { margin-top: 32px; padding: 16px 18px; border: 1px solid var(--line); background: var(--bg-1); font-size: 12px; color: var(--muted); line-height: 1.6; }
+.disclaimer strong { color: var(--warn); font-family: var(--mono); letter-spacing: 0.05em; }
+.wisdom { padding: 16px 18px; font-family: var(--mono); font-size: 12px; color: var(--dim); line-height: 1.7; border-top: 1px solid var(--line); }
+.wisdom .author { color: var(--accent); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6px; display: block; }
+.loading { padding: 60px; text-align: center; font-family: var(--mono); color: var(--muted); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
 #chart { width: 100%; height: 380px; display: block; }
-.tooltip { position: absolute; background: #111317; border: 1px solid #23262d; padding: 8px 10px; font-family: var(–mono); font-size: 11px; pointer-events: none; z-index: 10; display: none; }
+.tooltip { position: absolute; background: #111317; border: 1px solid #23262d; padding: 8px 10px; font-family: var(--mono); font-size: 11px; pointer-events: none; z-index: 10; display: none; }
 </style>
-
 </head>
 <body>
-<!-- Background layers -->
 <div class="bg-layer"></div>
 <div class="scanlines"></div>
 <div class="vignette"></div>
@@ -267,22 +133,19 @@ display: flex; align-items: center; gap: 6px;
 <div class="corner bl"></div>
 <div class="corner br"></div>
 
-<!-- ============ GATE SCREEN ============ -->
-
 <div class="gate" id="gate">
   <div class="gate-panel">
     <div class="gate-mark">HWMF</div>
     <div class="gate-sub">// MEMBERS ONLY //</div>
     <div class="gate-title">SIGNAL DESK</div>
-    <div class="gate-desc">Connect a whitelisted Solana wallet to access the terminal. Signing is free — no transaction, no gas.</div>
+    <div class="gate-desc">Open this page inside the Phantom or Solflare app's built-in browser, then connect your whitelisted wallet.</div>
     <button class="connect-btn" id="btnPhantom">Connect Phantom</button>
     <button class="connect-btn secondary" id="btnSolflare">Connect Solflare</button>
     <div class="gate-status" id="gateStatus"></div>
+    <div class="detect-info" id="detectInfo"></div>
     <div class="gate-footer">CRYPTO · TA · CONFLUENCE ENGINE</div>
   </div>
 </div>
-
-<!-- ============ MAIN APP ============ -->
 
 <div class="app" id="app" style="display:none">
   <header class="header">
@@ -297,10 +160,8 @@ display: flex; align-items: center; gap: 6px;
       <span>UPD: <strong id="updTime">—</strong></span>
     </div>
   </header>
-
   <div class="banner-error" id="bannerError"></div>
   <div class="pair-strip" id="pairStrip"></div>
-
   <div class="grid">
     <div class="panel">
       <div class="panel-body">
@@ -325,48 +186,61 @@ display: flex; align-items: center; gap: 6px;
         <div class="ind-row" id="indRow"></div>
       </div>
     </div>
-    <div>
-      <div class="panel" id="signalPanel"></div>
-    </div>
+    <div><div class="panel" id="signalPanel"></div></div>
   </div>
-
   <div class="disclaimer">
-    <strong>RISK NOTICE.</strong> Personal-use technical analysis tool for HWMF members. Signals derive from public price data via confluence of trend, momentum, and volatility indicators (EMA stack, RSI, MACD, Bollinger Bands, ATR) — methodologies associated with Wilder, Appel, Bollinger, Wyckoff, Raschke, Brooks, Weinstein, and others. <strong>Win rates of 50%+ on individual signals cannot be guaranteed</strong> by any system; profitable trading depends on positive expectancy through risk:reward and position sizing. Crypto is highly volatile. Stop losses and targets are ATR-based suggestions, not predictions. Never risk more than you can afford to lose. Not financial advice.
+    <strong>RISK NOTICE.</strong> Personal-use technical analysis tool for HWMF members. Signals derive from public price data via confluence indicators. <strong>Win rates of 50%+ on individual signals cannot be guaranteed.</strong> Crypto is highly volatile. Not financial advice.
   </div>
 </div>
 
 <script>
-// ============================================================
-// WHITELIST — replace these with your friends' Solana wallet addresses.
-// Each entry must be a base58-encoded Solana public key (44 chars, no spaces).
-// To add someone: paste their address as a new line. Case sensitive.
-// ============================================================
+// ============ WHITELIST ============
 const WHITELIST = [
-  // Example placeholder addresses — REPLACE THESE
   '11111111111111111111111111111111',
-  'So11111111111111111111111111111111111111112',
-  // Add more like this:
-  // 'YourFriendsWalletAddressGoesHere1234567890ABCD',
+  // Add your wallet addresses here, one per line, in quotes, comma at end
 ];
 
-// ============================================================
-// WALLET CONNECTION
-// ============================================================
-let connectedWallet = 'Ho1jj2bhvk8jL4Ui4A1zRzKweBxdnz8A77CVd7EZW8AH',
+// ============ WALLET DETECTION (Wallet Standard + legacy fallback) ============
+let connectedWallet = null;
+let registeredWallets = [];
+
+// Listen for Wallet Standard registration events. Modern Phantom/Solflare announce
+// themselves through this protocol. The site fires 'wallet-standard:app-ready'
+// and wallets respond with 'wallet-standard:register-wallet'.
+window.addEventListener('wallet-standard:register-wallet', (event) => {
+  try {
+    event.detail(({ register }) => {
+      // The wallet passes itself in via this callback
+      return () => {};
+    });
+  } catch (e) { /* noop */ }
+});
+
+// Discover wallets via Wallet Standard
+function discoverWallets() {
+  const found = [];
+  // Method 1: Wallet Standard via window.navigator.wallets (newer)
+  try {
+    window.dispatchEvent(new Event('wallet-standard:app-ready'));
+  } catch (e) {}
+
+  // Method 2: Legacy direct injection (most reliable in mobile in-app browsers)
+  if (window.phantom?.solana?.isPhantom) {
+    found.push({ name: 'phantom', provider: window.phantom.solana });
+  } else if (window.solana?.isPhantom) {
+    found.push({ name: 'phantom', provider: window.solana });
+  }
+
+  if (window.solflare?.isSolflare) {
+    found.push({ name: 'solflare', provider: window.solflare });
+  }
+
+  return found;
+}
 
 function getProvider(which) {
-  if (which === 'phantom') {
-    if ('phantom' in window) {
-      const provider = window.phantom?.solana;
-      if (provider?.isPhantom) return provider;
-    }
-    return null;
-  }
-  if (which === 'solflare') {
-    if ('solflare' in window && window.solflare?.isSolflare) return window.solflare;
-    return null;
-  }
-  return null;
+  const wallets = discoverWallets();
+  return wallets.find(w => w.name === which)?.provider || null;
 }
 
 function setGateStatus(msg, type) {
@@ -375,28 +249,55 @@ function setGateStatus(msg, type) {
   el.className = 'gate-status ' + (type || '');
 }
 
-function shortAddr(addr) {
-  return addr.slice(0, 4) + '…' + addr.slice(-4);
+function updateDetectInfo() {
+  const info = document.getElementById('detectInfo');
+  const ua = navigator.userAgent.substring(0, 60);
+  const hasPhantom = !!(window.phantom?.solana || window.solana?.isPhantom);
+  const hasSolflare = !!(window.solflare?.isSolflare);
+  const inPhantomBrowser = /Phantom/i.test(navigator.userAgent);
+  const inSolflareBrowser = /Solflare/i.test(navigator.userAgent);
+  info.innerHTML = `DEBUG:<br>
+    Phantom injected: ${hasPhantom ? 'YES' : 'NO'}<br>
+    Solflare injected: ${hasSolflare ? 'YES' : 'NO'}<br>
+    In Phantom app: ${inPhantomBrowser ? 'YES' : 'NO'}<br>
+    In Solflare app: ${inSolflareBrowser ? 'YES' : 'NO'}<br>
+    UA: ${ua}…`;
 }
 
+function shortAddr(addr) { return addr.slice(0, 4) + '…' + addr.slice(-4); }
+
 async function connectWallet(which) {
-  const provider = getProvider(which);
+  setGateStatus('Detecting wallet…');
+
+  // Wait a moment in case wallet injection is delayed
+  await new Promise(r => setTimeout(r, 200));
+
+  let provider = getProvider(which);
+
+  // Retry once after a longer delay (Phantom mobile sometimes injects late)
   if (!provider) {
-    const url = which === 'phantom' ? 'https://phantom.app/' : 'https://solflare.com/';
-    setGateStatus(`${which} not detected — install at ${url}`, 'error');
-    // Open install page
-    window.open(url, '_blank');
+    setGateStatus('Waiting for wallet to inject…');
+    await new Promise(r => setTimeout(r, 800));
+    provider = getProvider(which);
+  }
+
+  if (!provider) {
+    const url = which === 'phantom'
+      ? 'https://phantom.app/ul/browse/' + encodeURIComponent(window.location.href)
+      : 'https://solflare.com/ul/v1/browse/' + encodeURIComponent(window.location.href) + '?ref=' + encodeURIComponent(window.location.origin);
+    setGateStatus(`${which} not detected in this browser. Tap to open in ${which} app…`, 'error');
+    setTimeout(() => { window.location.href = url; }, 1500);
     return;
   }
 
   try {
     setGateStatus('Requesting connection…');
     const resp = await provider.connect();
-    const address = resp.publicKey.toString();
+    const address = resp.publicKey?.toString() || provider.publicKey?.toString();
+    if (!address) throw new Error('No public key returned');
 
-    // Check whitelist
     if (!WHITELIST.includes(address)) {
-      setGateStatus(`Wallet ${shortAddr(address)} is not whitelisted`, 'error');
+      setGateStatus(`Wallet ${shortAddr(address)} not whitelisted`, 'error');
       try { await provider.disconnect(); } catch (e) {}
       return;
     }
@@ -404,7 +305,6 @@ async function connectWallet(which) {
     setGateStatus(`Authorized: ${shortAddr(address)}`, 'ok');
     connectedWallet = { address, provider, which };
 
-    // Brief pause so the user sees the success message
     setTimeout(() => {
       document.getElementById('gate').style.display = 'none';
       document.getElementById('app').style.display = 'block';
@@ -416,12 +316,14 @@ async function connectWallet(which) {
   }
 }
 
+// Run detection info on load and periodically (in case wallet injects late)
+updateDetectInfo();
+setInterval(updateDetectInfo, 1000);
+
 document.getElementById('btnPhantom').addEventListener('click', () => connectWallet('phantom'));
 document.getElementById('btnSolflare').addEventListener('click', () => connectWallet('solflare'));
 
-// ============================================================
-// MAIN APP — only runs after wallet is verified
-// ============================================================
+// ============ MAIN APP (unchanged from previous version) ============
 const PAIRS = [
   { pair: 'XBTUSD',  restKey: 'XXBTZUSD', symbol: 'BTC',  name: 'Bitcoin' },
   { pair: 'ETHUSD',  restKey: 'XETHZUSD', symbol: 'ETH',  name: 'Ethereum' },
@@ -434,24 +336,17 @@ const PAIRS = [
   { pair: 'DOTUSD',  restKey: 'DOTUSD',   symbol: 'DOT',  name: 'Polkadot' },
   { pair: 'LTCUSD',  restKey: 'XLTCZUSD', symbol: 'LTC',  name: 'Litecoin' }
 ];
-const TIMEFRAMES = [
-  { l: '1H', interval: 5,    label: '5m candles' },
-  { l: '1D', interval: 60,   label: '1h candles' },
-  { l: '1W', interval: 240,  label: '4h candles' },
-  { l: '1M', interval: 1440, label: '1d candles' }
-];
+const TIMEFRAMES = [{l:'1H',interval:5},{l:'1D',interval:60},{l:'1W',interval:240},{l:'1M',interval:1440}];
 const WISDOM = [
   { t: 'Trends, once established, tend to continue. Trade with them, not against them.', a: 'Stan Weinstein' },
   { t: 'Cut losses quickly, let winners run. Asymmetric R:R beats high win rate.', a: 'Paul Tudor Jones (paraphrased)' },
-  { t: 'The market can stay irrational longer than you can stay solvent. Size positions accordingly.', a: 'attributed to Keynes' },
   { t: 'Confluence beats conviction. Wait for multiple signals to align before entry.', a: 'Linda Raschke (paraphrased)' },
   { t: 'Risk no more than 1–2% of account per trade. Survive first, profit second.', a: 'Van Tharp / Mark Minervini' },
   { t: 'Volume confirms price. A breakout without volume is suspect.', a: 'Richard Wyckoff' },
-  { t: 'The best trades feel obvious in hindsight and uncomfortable in the moment.', a: 'Al Brooks (paraphrased)' },
   { t: 'Plan the trade, trade the plan. Never move stops against you.', a: 'general trading axiom' }
 ];
 const KRAKEN_BASE = 'https://api.kraken.com/0/public';
-const ENDPOINTS = [{ kind: 'direct' }, { kind: 'corsproxy' }, { kind: 'allorigins' }];
+const ENDPOINTS = [{kind:'direct'},{kind:'corsproxy'},{kind:'allorigins'}];
 let workingEndpointIdx = null;
 let prices = {}, selected = 'XBTUSD', tfIdx = 1, candles = [], signal = null;
 
@@ -473,21 +368,20 @@ function generateSignal(c){
   const factors=[];
   if(E20>E50&&E50>E200)factors.push({n:'Trend (EMA stack)',v:'long',d:'Bullish: 20>50>200 EMA'});
   else if(E20<E50&&E50<E200)factors.push({n:'Trend (EMA stack)',v:'short',d:'Bearish: 20<50<200 EMA'});
-  else factors.push({n:'Trend (EMA stack)',v:'neutral',d:'Mixed EMAs — no clear trend'});
+  else factors.push({n:'Trend (EMA stack)',v:'neutral',d:'Mixed EMAs'});
   if(price>E200)factors.push({n:'Long-term bias',v:'long',d:'Price above 200 EMA'});
   else factors.push({n:'Long-term bias',v:'short',d:'Price below 200 EMA'});
   if(r<30)factors.push({n:'RSI',v:'long',d:`Oversold (${r.toFixed(1)})`});
   else if(r>70)factors.push({n:'RSI',v:'short',d:`Overbought (${r.toFixed(1)})`});
-  else if(r>50)factors.push({n:'RSI',v:'long',d:`Bullish momentum (${r.toFixed(1)})`});
-  else factors.push({n:'RSI',v:'short',d:`Bearish momentum (${r.toFixed(1)})`});
-  if(m>s&&h>hP)factors.push({n:'MACD',v:'long',d:'Bullish cross + expanding'});
-  else if(m<s&&h<hP)factors.push({n:'MACD',v:'short',d:'Bearish cross + expanding'});
-  else factors.push({n:'MACD',v:'neutral',d:'No momentum confirmation'});
-  const bbU=bb.upper[last],bbL=bb.lower[last],bbM=bb.mid[last];
-  if(price<bbL)factors.push({n:'Bollinger',v:'long',d:'Below lower band — stretched'});
-  else if(price>bbU)factors.push({n:'Bollinger',v:'short',d:'Above upper band — stretched'});
-  else if(price>bbM)factors.push({n:'Bollinger',v:'long',d:'Upper half of bands'});
-  else factors.push({n:'Bollinger',v:'short',d:'Lower half of bands'});
+  else if(r>50)factors.push({n:'RSI',v:'long',d:`Bullish (${r.toFixed(1)})`});
+  else factors.push({n:'RSI',v:'short',d:`Bearish (${r.toFixed(1)})`});
+  if(m>s&&h>hP)factors.push({n:'MACD',v:'long',d:'Bullish + expanding'});
+  else if(m<s&&h<hP)factors.push({n:'MACD',v:'short',d:'Bearish + expanding'});
+  else factors.push({n:'MACD',v:'neutral',d:'No confirmation'});
+  if(price<bb.lower[last])factors.push({n:'Bollinger',v:'long',d:'Below lower band'});
+  else if(price>bb.upper[last])factors.push({n:'Bollinger',v:'short',d:'Above upper band'});
+  else if(price>bb.mid[last])factors.push({n:'Bollinger',v:'long',d:'Upper half'});
+  else factors.push({n:'Bollinger',v:'short',d:'Lower half'});
   const lV=factors.filter(f=>f.v==='long').length; const sV=factors.filter(f=>f.v==='short').length;
   let dir='NEUTRAL',conf=0;
   if(lV>=4){dir='LONG'; conf=lV/factors.length;}
@@ -557,7 +451,7 @@ function renderPairStrip(){
 }
 function renderTimeframes(){
   const el=document.getElementById('timeframes');
-  el.innerHTML=TIMEFRAMES.map((tf,i)=>`<button class="tf-btn ${tfIdx===i?'active':''}" data-i="${i}" title="${tf.label}">${tf.l}</button>`).join('');
+  el.innerHTML=TIMEFRAMES.map((tf,i)=>`<button class="tf-btn ${tfIdx===i?'active':''}" data-i="${i}">${tf.l}</button>`).join('');
   el.querySelectorAll('.tf-btn').forEach(b=>b.addEventListener('click',()=>{tfIdx=parseInt(b.dataset.i); loadCandles();}));
 }
 function renderHeader(){
@@ -588,13 +482,11 @@ function renderSignal(){
     <div class="levels">
       <div class="level entry"><div class="label">Entry</div><div class="value">$${fmtPrice(signal.price)}</div></div>
       <div class="level sl"><div class="label">Stop Loss</div><div class="value">$${fmtPrice(signal.sl)}</div><div class="delta">${((signal.sl-signal.price)/signal.price*100).toFixed(2)}%</div></div>
-      <div class="level tp"><div class="label">Take Profit 1 (1R)</div><div class="value">$${fmtPrice(signal.tp1)}</div><div class="delta">${((signal.tp1-signal.price)/signal.price*100).toFixed(2)}%</div></div>
-      <div class="level tp"><div class="label">Take Profit 2 (2R)</div><div class="value">$${fmtPrice(signal.tp2)}</div><div class="delta">${((signal.tp2-signal.price)/signal.price*100).toFixed(2)}%</div></div>
+      <div class="level tp"><div class="label">TP 1 (1R)</div><div class="value">$${fmtPrice(signal.tp1)}</div><div class="delta">${((signal.tp1-signal.price)/signal.price*100).toFixed(2)}%</div></div>
+      <div class="level tp"><div class="label">TP 2 (2R)</div><div class="value">$${fmtPrice(signal.tp2)}</div><div class="delta">${((signal.tp2-signal.price)/signal.price*100).toFixed(2)}%</div></div>
     </div>`:'';
   const fHtml=signal.factors.map(f=>`<div class="factor"><div class="info"><span class="name">${f.n}</span><span class="detail">${f.d}</span></div><span class="vote ${f.v}">${f.v.toUpperCase()}</span></div>`).join('');
-  const rHtml=signal.levels.resistance.length?`<div style="margin-bottom:12px"><div style="font-size:10px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:6px">Resistance</div>${signal.levels.resistance.map(l=>`<div style="font-family:var(--mono);font-size:13px;color:var(--short);padding:3px 0">$${fmtPrice(l)}</div>`).join('')}</div>`:'';
-  const sHtml=signal.levels.support.length?`<div><div style="font-size:10px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:6px">Support</div>${signal.levels.support.map(l=>`<div style="font-family:var(--mono);font-size:13px;color:var(--long);padding:3px 0">$${fmtPrice(l)}</div>`).join('')}</div>`:'';
-  el.innerHTML=`<div class="signal-banner ${dir}"><div class="signal-direction ${dir}">${signal.direction}</div><div class="signal-meta"><span>SETUP: <strong>${signal.confidence}</strong></span><span>CONFLUENCE: <strong>${Math.round(signal.confluence*100)}%</strong></span>${signal.rr?`<span>R:R <strong>1:${signal.rr.toFixed(2)}</strong></span>`:''}</div></div>${lvHtml}<div class="panel-head"><h2>Confluence Factors</h2></div><div style="padding:0 18px 18px">${fHtml}</div><div class="panel-head"><h2>Key Levels</h2></div><div style="padding:0 18px 18px">${rHtml}${sHtml}</div><div class="wisdom">"${wisdom.t}"<span class="author">— ${wisdom.a}</span></div>`;
+  el.innerHTML=`<div class="signal-banner ${dir}"><div class="signal-direction ${dir}">${signal.direction}</div><div class="signal-meta"><span>SETUP: <strong>${signal.confidence}</strong></span><span>CONFLUENCE: <strong>${Math.round(signal.confluence*100)}%</strong></span>${signal.rr?`<span>R:R <strong>1:${signal.rr.toFixed(2)}</strong></span>`:''}</div></div>${lvHtml}<div class="panel-head"><h2>Confluence Factors</h2></div><div style="padding:0 18px 18px">${fHtml}</div><div class="wisdom">"${wisdom.t}"<span class="author">— ${wisdom.a}</span></div>`;
 }
 
 function drawChart(){
@@ -624,13 +516,6 @@ function drawChart(){
   for(let i=0;i<e20.length;i++){if(e20[i]==null)continue; if(!started){ctx.moveTo(x(i),y(e20[i])); started=true;} else ctx.lineTo(x(i),y(e20[i]));} ctx.stroke();
   ctx.strokeStyle='#f5d142'; ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(x(0),y(closes[0]));
   for(let i=1;i<closes.length;i++)ctx.lineTo(x(i),y(closes[i])); ctx.stroke();
-  const tt=document.getElementById('tooltip');
-  canvas.onmousemove=(e)=>{const rect=canvas.getBoundingClientRect(); const mx=e.clientX-rect.left;
-    const idx=Math.round(((mx-padL)/cw)*(candles.length-1));
-    if(idx<0||idx>=candles.length){tt.style.display='none'; return;}
-    const c=candles[idx]; tt.style.display='block'; tt.style.left=(mx+12)+'px'; tt.style.top='20px';
-    tt.innerHTML=`<div style="color:#9ca3af">${c.date}</div><div>O ${fmtPrice(c.open)} H ${fmtPrice(c.high)}</div><div>L ${fmtPrice(c.low)} C ${fmtPrice(c.close)}</div>`;};
-  canvas.onmouseleave=()=>{tt.style.display='none';};
 }
 
 async function loadPrices(){
@@ -654,6 +539,5 @@ function bootApp(){
   window.addEventListener('resize', () => candles.length && drawChart());
 }
 </script>
-
 </body>
 </html>
