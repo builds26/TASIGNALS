@@ -4,4 +4,4 @@ Personal-use crypto TA dashboard. 10 pairs from Kraken, live prices, confluence-
 
 Deployed via Netlify. Just open index.html in a browser.
 
-Not financial advice.
+Not financial advice. 
