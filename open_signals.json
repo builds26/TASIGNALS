@@ -12,7 +12,7 @@
     "confluence": 0.8,
     "opened_ts": 1777555800000,
     "opened_iso": "2026-04-30T13:30:00+00:00",
-    "tp1_hit": false
+    "tp1_hit": true
   },
   "XRP": {
     "id": "XRP_SHORT_1777559400000",
@@ -72,6 +72,51 @@
     "confluence": 0.8,
     "opened_ts": 1777570200000,
     "opened_iso": "2026-04-30T17:30:00+00:00",
+    "tp1_hit": false
+  },
+  "ETH": {
+    "id": "ETH_SHORT_1777573800000",
+    "symbol": "ETH",
+    "direction": "SHORT",
+    "entry": 2255.37,
+    "sl": 2261.7149139097055,
+    "tp1": 2245.852629135442,
+    "tp2": 2236.3352582708835,
+    "rsi_at_open": 44.424297697680565,
+    "rr": 2.9999999999999285,
+    "confluence": 0.8,
+    "opened_ts": 1777573800000,
+    "opened_iso": "2026-04-30T18:30:00+00:00",
+    "tp1_hit": false
+  },
+  "DOT": {
+    "id": "DOT_SHORT_1777573800000",
+    "symbol": "DOT",
+    "direction": "SHORT",
+    "entry": 1.2085,
+    "sl": 1.2115547300934306,
+    "tp1": 1.2039179048598538,
+    "tp2": 1.1993358097197075,
+    "rsi_at_open": 43.58042421658262,
+    "rr": 3.000000000000073,
+    "confluence": 0.8,
+    "opened_ts": 1777573800000,
+    "opened_iso": "2026-04-30T18:30:00+00:00",
+    "tp1_hit": false
+  },
+  "LTC": {
+    "id": "LTC_SHORT_1777573800000",
+    "symbol": "LTC",
+    "direction": "SHORT",
+    "entry": 55.49,
+    "sl": 55.60680498275361,
+    "tp1": 55.31479252586959,
+    "tp2": 55.13958505173918,
+    "rsi_at_open": 43.5514402134998,
+    "rr": 3.0,
+    "confluence": 0.8,
+    "opened_ts": 1777573800000,
+    "opened_iso": "2026-04-30T18:30:00+00:00",
     "tp1_hit": false
   }
 }
