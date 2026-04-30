@@ -1,4 +1,4 @@
-"""HWMF Snapshot Bot — leverage + tracking edition."""
+"""Builds26 Signal Desk Bot — leverage + tracking edition."""
 import os, json, urllib.request, urllib.parse
 from datetime import datetime, timezone, timedelta
 
@@ -275,7 +275,8 @@ def format_resolution(open_sig, status, hit_price, hit_ts):
     return msg, verdict, pct
 def format_snapshot(rows):
     now = datetime.now(timezone.utc).strftime('%H:%M UTC')
-    msg = f"<b>HWMF MARKET SNAPSHOT</b>\n"
+    msg = f"<b>BUILDS26 SIGNAL DESK</b>\n"
+
     msg += f"<i>{now} · 15m candles</i>\n\n"
     for r in rows:
         if r.get('error'):
