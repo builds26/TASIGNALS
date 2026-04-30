@@ -10,6 +10,8 @@ from datetime import datetime, timezone
 
 TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN']
 TELEGRAM_CHAT_ID = os.environ['TELEGRAM_CHAT_ID']
+print(f"DEBUG: token starts {TELEGRAM_TOKEN[:4]}, ends {TELEGRAM_TOKEN[-4:]}, length {len(TELEGRAM_TOKEN)}")
+print(f"DEBUG: chat_id is '{TELEGRAM_CHAT_ID}', length {len(TELEGRAM_CHAT_ID)}")
 
 PAIRS = [
     {'pair': 'XBTUSD',  'symbol': 'BTC'},
