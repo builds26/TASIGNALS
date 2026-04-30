@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  
+  contents: read
+
 concurrency:
   group: signal-bot
   cancel-in-progress: false
@@ -29,15 +29,3 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python signals_bot.py
-
-      - name: Commit state if changed
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          if [ -n "$(git status --porcelain signal_state.json)" ]; then
-            git add signal_state.json
-            git commit -m "Update signal state [skip ci]"
-            git pull --rebase origin main || true
-            git push || echo "Push failed (probably concurrent run) — will retry next cycle"
-          fi
-
