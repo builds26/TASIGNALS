@@ -230,26 +230,30 @@ def check_resolution(open_sig, candles):
     return None
 
 def format_new_signal(symbol, sig):
-    """Build the Telegram message for a fresh Strong signal."""
+    """Mobile-friendly Telegram message for a fresh Strong signal."""
     emoji = '🟢' if sig['direction'] == 'LONG' else '🔴'
     pct = round(sig['confluence']*100)
     sl_p = pct_move(sig['price'], sig['sl'])
     tp1_p = pct_move(sig['price'], sig['tp1'])
     tp2_p = pct_move(sig['price'], sig['tp2'])
 
-    msg = f"{emoji} <b>BUILDS26 SIGNAL</b>\n"
-    msg += f"<b>{symbol} {sig['direction']}</b>  ·  {pct}% confluence\n\n"
-    msg += f"Entry:  <code>${fmt_price(sig['price'])}</code>\n"
-    msg += f"SL:     <code>${fmt_price(sig['sl'])}</code>  ({sl_p:+.2f}%)\n"
-    msg += f"TP1:    <code>${fmt_price(sig['tp1'])}</code>  ({tp1_p:+.2f}%)\n"
-    msg += f"TP2:    <code>${fmt_price(sig['tp2'])}</code>  ({tp2_p:+.2f}%)\n"
-    if sig['rr']:
-        msg += f"R:R:    1:{sig['rr']:.2f}\n"
-    msg += f"RSI:    {sig['rsi']:.0f}\n"
-    msg += "\n────────────────\n"
+    # For SHORT, flip signs so SL always reads as loss and TPs as gains
+    if sig['direction'] == 'SHORT':
+        sl_p = -sl_p
+        tp1_p = -tp1_p
+        tp2_p = -tp2_p
 
-        for size in POSITION_SIZES:
-        msg += f"\n<b>${size} position</b>\n"
+    msg = f"{emoji} <b>BUILDS26 SIGNAL</b>\n"
+    msg += f"<b>{symbol} {sig['direction']}</b>  ·  {pct}% confluence  ·  RSI {sig['rsi']:.0f}\n\n"
+    msg += f"Entry:  <code>${fmt_price(sig['price'])}</code>\n"
+    msg += f"SL:     <code>${fmt_price(sig['sl'])}</code>\n"
+    msg += f"TP1:    <code>${fmt_price(sig['tp1'])}</code>\n"
+    msg += f"TP2:    <code>${fmt_price(sig['tp2'])}</code>\n"
+    if sig['rr']:
+        msg += f"R:R 1:{sig['rr']:.2f}\n"
+
+    for size in POSITION_SIZES:
+        msg += f"\n━━━ <b>${size} position</b> ━━━\n"
         for label, lev in LEVERAGE_LEVELS:
             sl_pct_l = sl_p * lev
             tp1_pct_l = tp1_p * lev
@@ -257,16 +261,15 @@ def format_new_signal(symbol, sig):
             sl_d = (sl_p/100) * size * lev
             tp1_d = (tp1_p/100) * size * lev
             tp2_d = (tp2_p/100) * size * lev
-            msg += f"  <code>{label:<5}</code>\n"
-            msg += f"    <code>SL  {sl_pct_l:+.2f}%  ({fmt_money(sl_d)})</code>\n"
-            msg += f"    <code>TP1 {tp1_pct_l:+.2f}%  ({fmt_money(tp1_d)})</code>\n"
-            msg += f"    <code>TP2 {tp2_pct_l:+.2f}%  ({fmt_money(tp2_d)})</code>\n"
+            msg += f"<b>{label}</b>\n"
+            msg += f"<code>SL  {sl_pct_l:+6.2f}%   {fmt_money(sl_d)}</code>\n"
+            msg += f"<code>TP1 {tp1_pct_l:+6.2f}%   {fmt_money(tp1_d)}</code>\n"
+            msg += f"<code>TP2 {tp2_pct_l:+6.2f}%   {fmt_money(tp2_d)}</code>\n"
 
-
-    msg += "\n────────────────\n"
-    msg += "<i>⚠ Higher leverage = higher liquidation risk.</i>\n"
-    msg += "<i>Illustrative values. Excludes fees, slippage, funding.</i>"
+    msg += "\n<i>⚠ Higher leverage = higher liquidation risk.</i>\n"
+    msg += "<i>Illustrative only. Excludes fees, slippage, funding.</i>"
     return msg
+
 
 def format_resolution(open_sig, status, hit_price, hit_ts):
     entry = open_sig['entry']; symbol = open_sig['symbol']
