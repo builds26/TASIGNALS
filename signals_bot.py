@@ -248,13 +248,20 @@ def format_new_signal(symbol, sig):
     msg += f"RSI:    {sig['rsi']:.0f}\n"
     msg += "\n────────────────\n"
 
-    for size in POSITION_SIZES:
+        for size in POSITION_SIZES:
         msg += f"\n<b>${size} position</b>\n"
         for label, lev in LEVERAGE_LEVELS:
+            sl_pct_l = sl_p * lev
+            tp1_pct_l = tp1_p * lev
+            tp2_pct_l = tp2_p * lev
             sl_d = (sl_p/100) * size * lev
             tp1_d = (tp1_p/100) * size * lev
             tp2_d = (tp2_p/100) * size * lev
-            msg += f"  <code>{label:<5}  SL {fmt_money(sl_d)}  TP1 {fmt_money(tp1_d)}  TP2 {fmt_money(tp2_d)}</code>\n"
+            msg += f"  <code>{label:<5}</code>\n"
+            msg += f"    <code>SL  {sl_pct_l:+.2f}%  ({fmt_money(sl_d)})</code>\n"
+            msg += f"    <code>TP1 {tp1_pct_l:+.2f}%  ({fmt_money(tp1_d)})</code>\n"
+            msg += f"    <code>TP2 {tp2_pct_l:+.2f}%  ({fmt_money(tp2_d)})</code>\n"
+
 
     msg += "\n────────────────\n"
     msg += "<i>⚠ Higher leverage = higher liquidation risk.</i>\n"
