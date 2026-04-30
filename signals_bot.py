@@ -383,19 +383,36 @@ def main():
 
     # Check open signals for resolution
     resolved_keys = []
-    for symbol, open_sig in list(open_signals.items()):
+        for symbol, open_sig in list(open_signals.items()):
         candles = pair_candles.get(symbol)
         if not candles:
             continue
-                result = check_resolution(open_sig, candles)
+        result = check_resolution(open_sig, candles)
         if result is None:
             continue
         status, hit_price, hit_ts = result
-        # Guard: have we already resolved this exact signal id?
         already_resolved = any(h.get('id') == open_sig.get('id') for h in history)
         if already_resolved:
             print(f"  SKIP {symbol}: already in history, removing from open")
             resolved_keys.append(symbol)
+            continue
+        msg, verdict, pct = format_resolution(open_sig, status, hit_price, hit_ts)
+        print(f"  RESOLVED {symbol}: {status} ({verdict}, {pct:+.2f}%)")
+        history.append({
+            **open_sig,
+            'status': status,
+            'verdict': verdict,
+            'exit_price': hit_price,
+            'exit_ts': hit_ts,
+            'pct_spot': pct,
+        })
+        try:
+            send_telegram(msg)
+            resolutions_posted += 1
+        except Exception as e:
+            print(f"  Failed to send resolution: {e}")
+        resolved_keys.append(symbol)
+
             continue
         msg, verdict, pct = format_resolution(open_sig, status, hit_price, hit_ts)
         print(f"  RESOLVED {symbol}: {status} ({verdict}, {pct:+.2f}%)")
