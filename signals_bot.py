@@ -240,9 +240,9 @@ def format_new_signal(symbol, sig):
         sl_p = -sl_p
         tp1_p = -tp1_p
         tp2_p = -tp2_p
-        tf_label = '1H' if INTERVAL == 60 else f'{INTERVAL}M' if INTERVAL < 60 else f'{INTERVAL//60}H'
-    msg = f"{emoji} <b>BUILDS26 SIGNAL</b>\n"
-    msg += f"<b>{symbol} {sig['direction']}</b>  ·  {pct}% confluence  ·  {tf_label}  ·  RSI {sig['rsi']:.0f}\n\n"
+        msg = f"{emoji} <b>BUILDS26 SIGNAL</b>\n"
+    msg += f"<b>{symbol} {sig['direction']}</b>  ·  {pct}% confluence  ·  1H  ·  RSI {sig['rsi']:.0f}\n\n"
+
 
     msg += f"Entry:  <code>${fmt_price(sig['price'])}</code>\n"
     msg += f"SL:     <code>${fmt_price(sig['sl'])}</code>\n"
