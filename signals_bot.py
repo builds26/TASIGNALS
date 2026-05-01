@@ -310,7 +310,7 @@ def format_daily_digest(open_signals, pair_candles):
         msg += "<i>No open signals right now. Bot is watching all 10 pairs and will alert when a Strong setup appears.</i>"
         return msg
     msg += f"<b>{len(open_signals)} open signal(s):</b>\n\n"
-        for symbol, sig in open_signals.items():
+    for symbol, sig in open_signals.items():
         candles = pair_candles.get(symbol)
         cur_price = candles[-1]['close'] if candles else sig['entry']
         opened = datetime.fromisoformat(sig['opened_iso'])
@@ -332,6 +332,7 @@ def format_daily_digest(open_signals, pair_candles):
         msg += f"   Entry ${fmt_price(entry)} → now ${fmt_price(cur_price)} ({progress_pct:+.2f}%)\n"
         msg += f"   <i>{to_tp1:+.2f}% to TP1  ·  {to_sl:+.2f}% to SL</i>\n\n"
     return msg
+
 
 def should_send_digest(meta):
     now = datetime.now(timezone.utc)
