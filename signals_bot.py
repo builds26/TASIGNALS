@@ -303,7 +303,9 @@ def format_resolution(open_sig, status, hit_price, hit_ts):
 
 def format_daily_digest(open_signals, pair_candles):
     now = datetime.now(timezone.utc).strftime('%d %b %Y · %H:%M UTC')
-    msg = f"📊 <b>BUILDS26 DAILY DIGEST</b>\n<i>{now}</i>\n\n"
+        tf_label = '1H' if INTERVAL == 60 else f'{INTERVAL}M' if INTERVAL < 60 else f'{INTERVAL//60}H'
+    msg = f"📊 <b>BUILDS26 DAILY DIGEST</b>\n<i>{now}  ·  {tf_label} candles</i>\n\n"
+
     if not open_signals:
         msg += "<i>No open signals right now. Bot is watching all 10 pairs and will alert when a Strong setup appears.</i>"
         return msg
