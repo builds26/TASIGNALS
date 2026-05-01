@@ -17,7 +17,7 @@ PAIRS = [
     {'pair': 'DOTUSD',  'symbol': 'DOT'},
     {'pair': 'LTCUSD',  'symbol': 'LTC'}
 ]
-INTERVAL = 15
+INTERVAL = 60
 EXPIRY_HOURS = 24
 POSITION_SIZES = [100, 500, 1000]
 LEVERAGE_LEVELS = [('Spot', 1), ('5x', 5), ('10x', 10)]
@@ -240,8 +240,10 @@ def format_new_signal(symbol, sig):
         sl_p = -sl_p
         tp1_p = -tp1_p
         tp2_p = -tp2_p
+        tf_label = '1H' if INTERVAL == 60 else f'{INTERVAL}M' if INTERVAL < 60 else f'{INTERVAL//60}H'
     msg = f"{emoji} <b>BUILDS26 SIGNAL</b>\n"
-    msg += f"<b>{symbol} {sig['direction']}</b>  ·  {pct}% confluence  ·  RSI {sig['rsi']:.0f}\n\n"
+    msg += f"<b>{symbol} {sig['direction']}</b>  ·  {pct}% confluence  ·  {tf_label}  ·  RSI {sig['rsi']:.0f}\n\n"
+
     msg += f"Entry:  <code>${fmt_price(sig['price'])}</code>\n"
     msg += f"SL:     <code>${fmt_price(sig['sl'])}</code>\n"
     msg += f"TP1:    <code>${fmt_price(sig['tp1'])}</code>\n"
@@ -324,9 +326,11 @@ def format_daily_digest(open_signals, pair_candles):
         msg += f"{emoji} <b>{symbol} {direction}</b>  ({age} old)"
         if sig.get('tp1_hit'):
             msg += " · TP1 ✓"
-        msg += "\n"
-        msg += f"   Entry ${fmt_price(entry)} → now ${fmt_price(cur_price)} ({progress_pct:+.2f}%)\n"
-        msg += f"   <i>{to_tp1:+.2f}% to TP1  ·  {to_sl:+.2f}% to SL</i>\n\n"
+            tf_label = '1H' if INTERVAL == 60 else f'{INTERVAL}M' if INTERVAL < 60 else f'{INTERVAL//60}H'
+    msg = f"{head}\n"
+    msg += f"<i>Entry ${fmt_price(entry)} → Exit ${fmt_price(hit_price)}  ·  {duration}  ·  {tf_label}</i>\n\n"
+        
+       msg += f"   <i>{to_tp1:+.2f}% to TP1  ·  {to_sl:+.2f}% to SL</i>\n\n"
     return msg
 def should_send_digest(meta):
     now = datetime.now(timezone.utc)
